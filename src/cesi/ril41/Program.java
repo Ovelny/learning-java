@@ -16,7 +16,7 @@ import cesi.ril41.exceptions.PasswordException;
 public class Program {
 
 	public static List<CompteUtilisateur> comptesUtilisateur = new ArrayList<CompteUtilisateur>();
-
+	public static Window panel;
 	public static void main(String[] args) {
 
 		// Initisialisation des 5 utilisateurs
@@ -31,7 +31,7 @@ public class Program {
 		 * CompteAdministrateur(5, "john", "doe", new generateurMDPComplex()));
 		 */
 
-		Window panel = new Window();
+		panel = new Window();
 		panel.setVisible(true);
 
 		// input console
@@ -75,7 +75,7 @@ public class Program {
 			// user.getSommeDeControle());
 
 			if (identifiant.testSommeControle(user.getSommeDeControle())) {
-				System.out.println("Bienvenue !");
+				panel.setMessage("Bienvenue!");
 				goodLogin = true;
 				goodPassword = true;
 				break;
@@ -91,14 +91,14 @@ public class Program {
 		try {
 
 			if (!goodLogin) {
-				throw new IdentifiantException("Identifiant inconnu.");
+				throw new IdentifiantException(" Identifiant inconnu.");
 			}
 
 			if (goodLogin && !goodPassword) {
-				throw new PasswordException("Mot de passe erroné.");
+				throw new PasswordException(" Mot de passe erroné.");
 			}
 		} catch (Exception e) {
-			System.out.println(e.getMessage());
+			panel.setMessage(e.getMessage());
 		}
 	}
 }

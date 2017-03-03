@@ -13,9 +13,15 @@ public class Window  extends JFrame {
 	private JButton okBtn = new JButton("OK");
 	private JButton reinitBtn = new JButton("Réinitialiser");
 	private JLabel loginTxt = new JLabel("Login");
+	private JLabel message = new JLabel();
 	private JLabel passwordTxt = new JLabel("Mot de passe");
 	private JTextField loginField = new JTextField(20);
 	private JPasswordField passwordField = new JPasswordField(20);
+	
+	
+	public void setMessage(String message) {
+		this.message.setText(message);
+	}
 	
 	public Window() {
 		Program.loadUsers();
@@ -57,15 +63,17 @@ public class Window  extends JFrame {
         constraints.anchor = GridBagConstraints.CENTER;
         this.add(reinitBtn, constraints);
         
+        constraints.gridx = 0;
+        constraints.gridy = 3;
+        constraints.gridwidth = 3;
+        constraints.anchor = GridBagConstraints.CENTER;
+        this.add(message, constraints);
+        
         // action listeners et action performed
         okBtn.addActionListener(new ActionListener() {
         	
 			public void actionPerformed(ActionEvent e) {
-        		String inputIdentifiant = loginField.getText();
-        		String inputPassword = new String(passwordField.getPassword());
-        		
-        		Identifiant identifiant = new Identifiant(inputIdentifiant, inputPassword);
-        		Program.checkLogin(identifiant);
+				okPerformed();
         	}
         });
         
@@ -86,11 +94,16 @@ public class Window  extends JFrame {
 	}
 	
 	public void okPerformed() {
-		System.out.println("ok working");
+		String inputIdentifiant = loginField.getText();
+		String inputPassword = new String(passwordField.getPassword());
+		
+		Identifiant identifiant = new Identifiant(inputIdentifiant, inputPassword);
+		Program.checkLogin(identifiant);
 	}
 	
 	public void reinitPerformed() {
 		loginField.setText("");
 		passwordField.setText("");
+		message.setText("");
 	}
 }
