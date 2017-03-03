@@ -46,6 +46,9 @@ public class Program {
 			e.printStackTrace();
 		}
 		
+		Window panel = new Window();
+	    panel.setVisible(true);
+	    
 //		System.out.println(comptesUtilisateur.get(1).getNom());
 //		// input console
 //
