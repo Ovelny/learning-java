@@ -15,10 +15,11 @@ import cesi.ril41.exceptions.PasswordException;
 
 public class Program {
 
+	public static List<CompteUtilisateur> comptesUtilisateur = new ArrayList<CompteUtilisateur>();
+
 	public static void main(String[] args) {
 
 		// Initisialisation des 5 utilisateurs
-		List<CompteUtilisateur> comptesUtilisateur = new ArrayList<CompteUtilisateur>();
 		/*
 		 * comptesUtilisateur.add(new CompteUtilisateur(1, "lanrent", "remy",
 		 * new generateurMDPSimple())); comptesUtilisateur.add(new
@@ -30,6 +31,21 @@ public class Program {
 		 * CompteAdministrateur(5, "john", "doe", new generateurMDPComplex()));
 		 */
 
+		Window panel = new Window();
+		panel.setVisible(true);
+
+		// input console
+
+		// System.out.println("Veuillez saisir votre identifiant");
+		//
+		// Scanner inputUser = new Scanner(System.in);
+		// String inputIdentifiant = inputUser.nextLine();
+		// System.out.println("Veuillez saisir votre mot de passe");
+		// String inputPassword = inputUser.nextLine();
+		// inputUser.close();
+	}
+
+	public static void loadUsers() {
 		Scanner monLecteur;
 		try {
 			monLecteur = new Scanner(new File("utilisateurs.txt"));
@@ -41,63 +57,48 @@ public class Program {
 
 			}
 			monLecteur.close();
-		} 
-		catch (FileNotFoundException e) {
+		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
-		
-		Window panel = new Window();
-	    panel.setVisible(true);
-	    
-//		System.out.println(comptesUtilisateur.get(1).getNom());
-//		// input console
-//
-//		System.out.println("Veuillez saisir votre identifiant");
-//
-//		Scanner inputUser = new Scanner(System.in);
-//		String inputIdentifiant = inputUser.nextLine();
-//		System.out.println("Veuillez saisir votre mot de passe");
-//		String inputPassword = inputUser.nextLine();
-//		inputUser.close();
-//
-//		Identifiant identifiant = new Identifiant(inputIdentifiant, inputPassword);
-//		boolean goodLogin = false;
-//		boolean goodPassword = false;
-//		
-//		// Caclule le poids de chaque utilisateur
-//		for (int i = 0; i < comptesUtilisateur.size(); i++) {
-//			Identifiant user = comptesUtilisateur.get(i).genererIdentifiant();
-//			// System.out.println("Mot de passe généré : " +
-//			// user.getMotDePasse());
-//			// System.out.println("Somme de controle trouvé : " +
-//			// user.getSommeDeControle());
-//
-//			if (identifiant.testSommeControle(user.getSommeDeControle())) {
-//				System.out.println("Bienvenue !");
-//				goodLogin = true;
-//				goodPassword = true;
-//				break;
-//			}
-//			
-//			if (identifiant.getLogin().equals(user.getLogin())) {
-//				goodLogin = true;
-//				break;
-//			}
-//
-//		}
-//		
-//		try {
-//			
-//			if (!goodLogin) {
-//				throw new IdentifiantException("Identifiant inconnu.");
-//			}
-//
-//			if (goodLogin && !goodPassword) {
-//				throw new PasswordException("Mot de passe erroné.");
-//			}
-//		} 
-//		catch (Exception e) {
-//			System.out.println(e.getMessage());
-//		}
+	}
+
+	public static void checkLogin(Identifiant identifiant) {
+		boolean goodLogin = false;
+		boolean goodPassword = false;
+
+		// Caclule le poids de chaque utilisateur
+		for (int i = 0; i < comptesUtilisateur.size(); i++) {
+			Identifiant user = comptesUtilisateur.get(i).genererIdentifiant();
+			// System.out.println("Mot de passe généré : " +
+			// user.getMotDePasse());
+			// System.out.println("Somme de controle trouvé : " +
+			// user.getSommeDeControle());
+
+			if (identifiant.testSommeControle(user.getSommeDeControle())) {
+				System.out.println("Bienvenue !");
+				goodLogin = true;
+				goodPassword = true;
+				break;
+			}
+
+			if (identifiant.getLogin().equals(user.getLogin())) {
+				goodLogin = true;
+				break;
+			}
+
+		}
+
+		try {
+
+			if (!goodLogin) {
+				throw new IdentifiantException("Identifiant inconnu.");
+			}
+
+			if (goodLogin && !goodPassword) {
+				throw new PasswordException("Mot de passe erroné.");
+			}
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
 	}
 }
