@@ -19,7 +19,7 @@ public class Program {
 	public static Window panel;
 	public static void main(String[] args) {
 
-		// Initisialisation des 5 utilisateurs
+		// Initialisation des 5 utilisateurs
 		/*
 		 * comptesUtilisateur.add(new CompteUtilisateur(1, "lanrent", "remy",
 		 * new generateurMDPSimple())); comptesUtilisateur.add(new
